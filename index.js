@@ -33,14 +33,15 @@ const checkFiles = async (files) => {
 
 async function run() {
   try {
-    const filesInput = core.getInput('files')
+    const filesInput = core.getInput('files');
     const files = filesInput.split(',').map(file => file.trim());
-    
+
     const comments = await checkFiles(files);
-    
+
     if (comments.length > 0) {
       const context = github.context;
       const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+
       const pullRequestNumber = context.payload.pull_request?.number;
 
       if (pullRequestNumber) {
@@ -52,7 +53,10 @@ async function run() {
           });
         }
       } else {
-        core.setFailed('No pull request found.');
+        core.info('Non-inclusive language found:');
+        comments.forEach(comment => {
+          core.info(comment);
+        });
       }
     } else {
       core.info('No non-inclusive language found.');
