@@ -1,5 +1,7 @@
 name: "Inclusive Language Checker"
 description: "Checks code for non-inclusive language and suggests replacements"
+icon: "heart"
+color: "purple"  
 inputs:
   files:
     description: "Comma-separated list of file patterns to check for non-inclusive language"
