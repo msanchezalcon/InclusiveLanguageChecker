@@ -1,0 +1,26 @@
+{
+  "terms": {
+    "master": ["primary", "main"],
+    "slave": ["replica", "secondary"],
+    "whitelist": ["allowlist", "inclusion list"],
+    "blacklist": ["denylist", "exclusion list"],
+    "grandfathered": ["legacy", "exempted"],
+    "dummy": ["placeholder", "sample", "example"],
+    "sanity check": ["validity check", "confidence check", "quick check"],
+    "cripple": ["restrict", "limit"],
+    "he": ["they", "user", "caller", "developer"],
+    "him": ["them", "user", "caller", "developer"],
+    "his": ["their", "user's", "caller’s", "developer's"],
+    "she": ["they", "user", "caller", "developer"],
+    "her": ["their", "user's", "caller’s", "developer's"],
+    "man hours": ["person hours", "work hours"],
+    "manpower": ["workforce", "staff", "personnel"],
+    "blacklist/whitelist": ["blocklist/allowlist", "denylist/allowlist"],
+    "dummy value": ["placeholder value", "test value"],
+    "kill process": ["terminate process", "stop process"],
+    "abort": ["cancel", "stop"],
+    "crippled": ["limited", "restricted"],
+    "crazy": ["unexpected", "problematic"],
+    "native": ["built-in", "default"]
+  }
+}
