@@ -1,0 +1,5 @@
+name: "Inclusive Language Checker"
+description: "Checks code for non inclusive language"
+runs:
+  using: "node12"
+  main: "index.js"
