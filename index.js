@@ -50,7 +50,7 @@ async function run() {
       if (pullRequestNumber) {
         let body = '🔍 **Non-inclusive language found:**\n\n';
         for (const [file, messages] of Object.entries(comments)) {
-          body += `In \`${file}\`: \n`;
+          body += `In \`${file}\`:\n`;
           messages.forEach(message => {
             body += `${message}\n`;
           });
@@ -69,7 +69,7 @@ async function run() {
     } else {
       core.info('No non-inclusive language found.');
     }
-  } catch (error) 
+  } catch (error) {
     core.setFailed(`Action failed with error: ${error.message}`);
   }
 }
