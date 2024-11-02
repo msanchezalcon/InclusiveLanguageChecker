@@ -1,5 +1,9 @@
 name: "Inclusive Language Checker"
-description: "Checks code for non inclusive language"
+description: "Checks code for non-inclusive language and suggests replacements"
+inputs:
+  files:
+    description: "Comma-separated list of file patterns to check for non-inclusive language"
+    required: true
 runs:
   using: "node12"
   main: "index.js"
