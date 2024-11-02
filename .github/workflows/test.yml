@@ -13,9 +13,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Inclusive Language Checker
-        uses: ./InclusiveLanguageChecker
+        uses: msanchezalcon/InclusiveLanguageChecker@main
         with:
           files: |
-            test-file.js
+            test.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
