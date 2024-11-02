@@ -45,18 +45,15 @@ async function run() {
       const pullRequestNumber = context.payload.pull_request?.number;
 
       if (pullRequestNumber) {
-        for (const comment of comments) {
-          await octokit.rest.issues.createComment({
-            ...context.repo,
-            issue_number: pullRequestNumber,
-            body: comment,
-          });
-        }
-      } else {
-        core.info('Non-inclusive language found:');
-        comments.forEach(comment => {
-          core.info(comment);
+        // Group comments into a single message
+        const groupedComments = comments.join('\n'); // Join all comments with line breaks
+        await octokit.rest.issues.createComment({
+          ...context.repo,
+          issue_number: pullRequestNumber,
+          body: `Non-inclusive language found:\n${groupedComments}`, // Single comment
         });
+      } else {
+        core.info('No pull request found; comments will not be posted.');
       }
     } else {
       core.info('No non-inclusive language found.');
