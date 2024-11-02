@@ -11,7 +11,7 @@ const loadTerms = () => {
 
 const checkFiles = async (files) => {
   const termsMap = loadTerms();
-  let comments = [];
+  let comments = {};
 
   for (const file of files) {
     const filePath = path.join(process.cwd(), file);
@@ -19,8 +19,11 @@ const checkFiles = async (files) => {
       const content = fs.readFileSync(filePath, 'utf-8');
       Object.keys(termsMap).forEach((term) => {
         if (content.includes(term)) {
+          if (!comments[file]) {
+            comments[file] = [];
+          }
           const suggestions = termsMap[term].join(', ');
-          comments.push(`Non-inclusive term found in ${file}: "${term}". Suggested replacements: ${suggestions}.`);
+          comments[file].push(`For the term: "${term}", consider replacing it with: **${suggestions}**.`);
         }
       });
     } else {
@@ -38,19 +41,27 @@ async function run() {
 
     const comments = await checkFiles(files);
 
-    if (comments.length > 0) {
+    if (Object.keys(comments).length > 0) {
       const context = github.context;
       const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 
       const pullRequestNumber = context.payload.pull_request?.number;
 
       if (pullRequestNumber) {
-        // Group comments into a single message
-        const groupedComments = comments.join('\n');
+        let body = '🔍 **Non-inclusive language found:**\n\n';
+        for (const [file, messages] of Object.entries(comments)) {
+          body += `In \`${file}\`: \n`;
+          messages.forEach(message => {
+            body += `${message}\n`;
+          });
+          body += '\n';
+        }
+        body += 'Please consider using the suggested replacements for a more inclusive language! ✨';
+
         await octokit.rest.issues.createComment({
           ...context.repo,
           issue_number: pullRequestNumber,
-          body: `Non-inclusive language found:\n${groupedComments}`,
+          body: body,
         });
       } else {
         core.info('No pull request found; comments will not be posted.');
@@ -58,7 +69,7 @@ async function run() {
     } else {
       core.info('No non-inclusive language found.');
     }
-  } catch (error) {
+  } catch (error) 
     core.setFailed(`Action failed with error: ${error.message}`);
   }
 }
