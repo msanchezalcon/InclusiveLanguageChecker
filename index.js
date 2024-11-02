@@ -46,11 +46,11 @@ async function run() {
 
       if (pullRequestNumber) {
         // Group comments into a single message
-        const groupedComments = comments.join('\n'); // Join all comments with line breaks
+        const groupedComments = comments.join('\n');
         await octokit.rest.issues.createComment({
           ...context.repo,
           issue_number: pullRequestNumber,
-          body: `Non-inclusive language found:\n${groupedComments}`, // Single comment
+          body: `Non-inclusive language found:\n${groupedComments}`,
         });
       } else {
         core.info('No pull request found; comments will not be posted.');
