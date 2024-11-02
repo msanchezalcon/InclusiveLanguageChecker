@@ -1,0 +1,11 @@
+{
+  "name": "inclusive-language-checker",
+  "version": "1.0.0",
+  "description": "A GitHub Action to check for non-inclusive language",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {},
+  "author": "",
+  "license": "MIT"
+}
