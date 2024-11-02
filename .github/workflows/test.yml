@@ -10,6 +10,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,11 +29,10 @@ jobs:
 
       - name: List files in current directory
         run: ls -R
-        
+
       - name: Run Inclusive Language Checker
         uses: ./
         with:
-          files: |
-            test.js
+          files: test.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
